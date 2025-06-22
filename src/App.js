@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './pages/Header';
+import ProductsList from './pages/ProductsList';
+import Footer from './pages/Footer';
+import { useEffect, useState } from 'react';
+import { fetchProducts } from './utils/api';
 
 function App() {
+const [products, setProducts] = useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    const storedProducts = localStorage.getItem('products');
+    if (storedProducts) {
+      setProducts(JSON.parse(storedProducts));
+    }else{
+      const fetchedProducts = await fetchProducts();
+      setProducts(fetchedProducts);
+      localStorage.setItem('products',JSON.stringify(fetchedProducts));
+    }
+  };
+  fetchData();
+},[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+
+      <main>
+        <ProductsList/>
+      </main>
+
+      <Footer/>
     </div>
   );
 }
