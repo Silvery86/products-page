@@ -1,14 +1,7 @@
 import axios from 'axios';
+import type { Product } from '../types';
 
 const BASE_URL = 'https://dummyjson.com';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  description: string;
-}
 
 // Function to fetch all products
 export const fetchProducts = async (): Promise<Product[]> => {

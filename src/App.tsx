@@ -21,7 +21,6 @@ const App: React.FC = () => {
         localStorage.setItem('products', JSON.stringify(fetchedProducts));
       }
     };
-
     fetchData();
   }, []);
 
